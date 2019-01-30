@@ -1,0 +1,30 @@
+{
+  "name": "tggroupcleanupbot",
+  "version": "0.9.0",
+  "description": "A Telegram group cleanupbot",
+  "main": "groupcleanupbot.js",
+  "dependencies": {
+    "mysql": "^2.16.0",
+    "telebot": "^1.2.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Telegram",
+    "Group",
+    "Cleanup",
+    "Bot"
+  ],
+  "author": "Thewildbear",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheWildBear/cleanupbot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TheWildBear/cleanupbot/issues"
+  },
+  "homepage": "https://github.com/TheWildBear/cleanupbot#readme"
+}
