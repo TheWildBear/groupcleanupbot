@@ -71,9 +71,10 @@ bot.on(/^\/settimer (.+)$/, (msg, props) => {
 	}
 });
 
+//sends the users, with which times they are in the group
 bot.on('/users', msg => {
 	msg.reply.text("The last message in Group for every person is:");
-	let sqlread = "SELECT * FROM GroupUserTime;";
+	let sqlread = "SELECT * FROM GroupUserTime WHERE fk_groupid = " + msg.chat.id + ":smiley:;";
 	dbread.getConnection(function(err, connection) {
 		if (err) throw err;
 		connection.query(sqlread, function(err, rows) {
@@ -89,6 +90,7 @@ bot.on('/users', msg => {
 	});
 })
 
+//sends the offtimes that are currently in the database
 bot.on('/offtime', msg => {
 	msg.reply.text("The offtime per person is:");
 	let sqlread = "SELECT `Cleanupgroup`.`Timer` - ( NOW( ) - `GroupUserTime`.`Time` ) AS `Time`, `GroupUserTime`.`fk_groupid` AS `Group`, `GroupUserTime`.`fk_userid` AS `User` FROM { oj `cleanupbot`.`GroupUserTime` AS `GroupUserTime` LEFT OUTER JOIN `cleanupbot`.`Cleanupgroup` AS `Cleanupgroup` ON `GroupUserTime`.`fk_groupid` = `Cleanupgroup`.`Groupid` }";
@@ -118,7 +120,7 @@ setInterval(function offtimecheckandkick(){
 				if(rows[i].Time < 0){
 					bot.sendMessage(rows[i].fk_groupid, "The user with the id " + rows[i].fk_userid + " has been too long offline!");
 					kick(rows[i].Group, rows[i].User);
-					bot.sendMessage(rows[i].fk_userid, "You have been kicked from the group " + rows[i].fk_groupid + " for not writing for a long time... You can join back if you want! Just keep active ;)");
+					bot.sendMessage(rows[i].fk_userid, "You have been kicked from the group " + rows[i].fk_groupid + " for not writing for a long time... You can join back if you want! Just stay active ;)");
 				}
 			}
 			if (err) throw err;
